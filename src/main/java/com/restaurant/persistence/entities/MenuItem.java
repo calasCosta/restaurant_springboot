@@ -1,4 +1,4 @@
-package com.restaurant.persistence;
+package com.restaurant.persistence.entities;
 
 import jakarta.persistence.*;
 
