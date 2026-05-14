@@ -2,6 +2,7 @@ package com.restaurant.presentation;
 
 import com.restaurant.persistence.entities.MenuItem;
 import com.restaurant.service.MenuItemService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,13 @@ public class MenuItemController {
         return service.getAllItems();
     }
 
+    @GetMapping("/items/{id}")
+    MenuItem getOne(@PathVariable Long id) {
+        return service.getItem(id);
+    }
+
     @PostMapping("/items")
-    MenuItem create(@RequestBody MenuItem newItem){
+    MenuItem create(@Valid @RequestBody MenuItem newItem){
         return service.createItem(newItem.getName(), newItem.price());
     }
 }
