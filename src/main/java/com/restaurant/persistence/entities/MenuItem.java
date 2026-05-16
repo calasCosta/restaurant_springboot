@@ -1,4 +1,4 @@
-package com.restaurant.persistence;
+package com.restaurant.persistence.entities;
 
 import jakarta.persistence.*;
 
@@ -20,5 +20,9 @@ public class MenuItem {
 
     public Long getId(){ return id; }
     public String getName(){ return name; }
-    public double price(){ return price; }
+    public double getPrice(){ return price; }
+
+    // Setters (needed for updates)
+    public void setName(String name) { this.name = name; }
+    public void setPrice(double price) { this.price = price; }
 }
