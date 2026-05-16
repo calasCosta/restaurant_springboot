@@ -1,34 +1,47 @@
 package com.restaurant.presentation;
 
-import com.restaurant.persistence.entities.MenuItem;
-import com.restaurant.service.MenuItemService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
+import com.restaurant.service.MenuItemService;
+import com.restaurant.persistence.entities.MenuItem;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-
 
 @RestController
+@RequestMapping("/items")
 public class MenuItemController {
     private final MenuItemService service;
 
-    public MenuItemController(MenuItemService service){
+    public MenuItemController(MenuItemService service) {
         this.service = service;
     }
 
-    @GetMapping("/items")
+    //GET /items retrieve all
+    @GetMapping
     List<MenuItem> getAll(){
         return service.getAllItems();
     }
 
-    @GetMapping("/items/{id}")
-    MenuItem getOne(@PathVariable Long id) {
+    //GET /items/{id} - retrieve one
+    @GetMapping("/{id}")
+    MenuItem getOne(@PathVariable Long id){
         return service.getItem(id);
     }
 
-    @PostMapping("/items")
+    //POST /items - create new
+    @PostMapping
     MenuItem create(@Valid @RequestBody MenuItem newItem){
-        return service.createItem(newItem.getName(), newItem.price());
+        return service.createItem(newItem.getName(), newItem.getPrice());
+    }
+
+    //PUT /{id} - update existing
+    @PutMapping("/{id}")
+    MenuItem update(@PathVariable Long id, @Valid @RequestBody MenuItem updatedItem){
+        return service.updateItem(id, updatedItem.getName(), updatedItem.getPrice());
+    }
+
+    //DELETE /{id} - delete
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable Long id){
+        service.deleteItem(id);
     }
 }
