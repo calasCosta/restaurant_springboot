@@ -1,5 +1,6 @@
 package com.restaurant.service;
 
+import com.restaurant.exception.ResourceNotFoundException;
 import com.restaurant.persistence.entities.MenuItem;
 import com.restaurant.persistence.repositories.MenuItemRepository;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class MenuItemService {
 
     public MenuItem getItem(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Item not found with id: " + id));
     }
 
     public MenuItem createItem(String name, double price) {
